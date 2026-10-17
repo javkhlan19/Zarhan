@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="mn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#14532d">
+  <meta name="description" content="Монголын энгийн онлайн зарын апп">
+  <title>Зархан — Зар нийтлэх</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Зархан нүүр"><span class="brand-icon">З</span><span>зархан<span class="dot">.</span></span></a>
+    <span class="tagline">Худалдаа ойрхон</span>
+    <button class="primary small" id="openFormTop">＋ Зар нэмэх</button>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">МОНГОЛЫН ОНЛАЙН ЗАР</p>
+        <h1>Хайснаа ол.<br><span>Хэрэггүйгээ зар.</span></h1>
+        <p class="sub">Хэрэгтэй зүйлээ олоод, өөрийн зараа үнэгүй нийтлээрэй.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="sun"></div><div class="bag">🛍️</div><div class="spark s1">✦</div><div class="spark s2">✧</div></div>
+    </section>
+
+    <section class="search-row" aria-label="Зар хайх">
+      <div class="searchbox"><span>⌕</span><input id="searchInput" type="search" placeholder="Юу хайж байна вэ?" aria-label="Зар хайх"></div>
+      <select id="sortSelect" aria-label="Эрэмбэлэх"><option value="new">Шинэ зарууд</option><option value="low">Үнэ: багаас их</option><option value="high">Үнэ: ихээс бага</option></select>
+    </section>
+
+    <section class="categories" id="categories">
+      <button class="category active" data-category="Бүгд"><span>✦</span> Бүгд</button>
+      <button class="category" data-category="Электроник"><span>📱</span> Электроник</button>
+      <button class="category" data-category="Хувцас"><span>👕</span> Хувцас</button>
+      <button class="category" data-category="Гэр ахуй"><span>🪑</span> Гэр ахуй</button>
+      <button class="category" data-category="Тээвэр"><span>🚲</span> Тээвэр</button>
+      <button class="category" data-category="Бусад"><span>📦</span> Бусад</button>
+    </section>
+
+    <div class="section-heading"><div><p class="eyebrow">СОНГОЛТОО ОЛ</p><h2>Сүүлийн зарууд</h2></div><span class="count" id="resultCount">0 зар</span></div>
+    <section class="listing-grid" id="listingGrid" aria-live="polite"></section>
+    <div class="empty hidden" id="emptyState"><div>🔎</div><h3>Зар олдсонгүй</h3><p>Өөр үгээр хайх эсвэл шинэ зар нэмээд үзээрэй.</p></div>
+
+    <section class="cta">
+      <div><p class="eyebrow">ХУДАЛДАХ ЗҮЙЛ БАЙНА УУ?</p><h2>Зараа хэдхэн алхмаар нийтэл.</h2><p>Одоогоор энэ туршилтын хувилбар үнэ төлбөргүй.</p></div>
+      <button class="primary" id="openFormBottom">＋ Үнэгүй зар нэмэх</button>
+    </section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#"><span class="brand-icon">З</span><span>зархан<span class="dot">.</span></span></a><p>Эхний туршилтын хувилбар · © 2026</p><small>Зөвлөгөө: Танихгүй хүнд урьдчилгаа мөнгө бүү шилжүүл.</small></footer>
+
+  <div class="modal hidden" id="listingModal" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+    <div class="modal-backdrop" id="closeBackdrop"></div>
+    <div class="modal-panel">
+      <div class="modal-head"><div><p class="eyebrow">ХУДАЛДАХ / СОЛИХ</p><h2 id="formTitle">Шинэ зар нэмэх</h2></div><button class="close" id="closeForm" aria-label="Хаах">×</button></div>
+      <form id="listingForm">
+        <label>Зарын нэр *<input name="title" maxlength="70" required placeholder="Жишээ: Утас зарна"></label>
+        <div class="two-col">
+          <label>Үнэ (₮) *<input name="price" type="number" min="0" step="1000" required placeholder="250000"></label>
+          <label>Ангилал *<select name="category" required><option value="Электроник">Электроник</option><option value="Хувцас">Хувцас</option><option value="Гэр ахуй">Гэр ахуй</option><option value="Тээвэр">Тээвэр</option><option value="Бусад">Бусад</option></select></label>
+        </div>
+        <label>Тайлбар<textarea name="description" maxlength="300" rows="3" placeholder="Барааны тухай товч мэдээлэл"></textarea></label>
+        <label>Зурагны холбоос (заавал биш)<input name="image" type="url" placeholder="https://..."></label>
+        <div class="two-col">
+          <label>Байршил<input name="location" maxlength="50" placeholder="Жишээ: Улаанбаатар"></label>
+          <label>Холбоо барих утас *<input name="phone" type="tel" required maxlength="20" placeholder="99112233"></label>
+        </div>
+        <p class="form-note">Туршилтын хувилбарт зарууд энэ төхөөрөмжийн браузерт хадгалагдана. Бусад хүн харах нийтлэг сан одоогоор холбогдоогүй.</p>
+        <button class="primary submit" type="submit">Зарыг нийтлэх</button>
+      </form>
+    </div>
+  </div>
+  <div class="toast hidden" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
